@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { setPhotos } from "../../ducks/photos";
+import { setPhoto, setPhotos } from "../../ducks/photos";
 import { requestGetPhoto, requestGetPhotos } from "../requests/photos";
 
 function* handleGetPhotos() {
@@ -14,9 +14,9 @@ function* handleGetPhotos() {
 
 function* handleGetPhoto(action) {
   try {
-    const response = yield call(() => requestGetPhoto(12));
+    const response = yield call(() => requestGetPhoto(action.id));
     const { data } = response;
-    yield put(setPhotos(data));
+    yield put(setPhoto(data));
   } catch (error) {
     console.error(error);
   }

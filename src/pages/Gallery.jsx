@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Button, Card, Image } from "react-bootstrap";
+import { Button, Card, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getPhotos, getPhoto } from "../redux/ducks/photos";
+import { useNavigate } from "react-router-dom";
+import { getPhotos } from "../redux/ducks/photos";
 import "../styles/gallery.css";
 
 function Gallery() {
@@ -22,51 +23,62 @@ function Gallery() {
     },
     [[]]
   );
-  console.log(photosGrouped);
 
   const dispatch = useDispatch();
   const handleGetPhotos = () => {
     dispatch(getPhotos());
   };
-  const handleGetPhoto = () => {
-    dispatch(getPhoto());
-  };
 
   useEffect(handleGetPhotos, []);
-  // useEffect(handleGetPhoto, []);
+
+  const navigate = useNavigate();
+
+  function showPhotoDetails(event) {
+    const id = event.target.dataset.id;
+    navigate(`/gallery/${id}`);
+  }
 
   return (
     <div>
-      {photosGrouped.map((group, index) => (
-        <div key={index}>
-          <h3>Категория {index + 1}</h3>
-          {group.map((photo) => (
-            <Card
-              key={photo.id}
-              style={{
-                width: "10rem",
-                display: "inline-block",
-                position: "relative",
-              }}
-              className="card"
-            >
-              <Card.Img src={photo.thumbnailUrl} />
-              <Card.Body
+      {photos.length === 0 ? (
+        <Spinner animation="border" />
+      ) : (
+        photosGrouped.map((group, index) => (
+          <div key={index}>
+            <h3>Категория {index + 1}</h3>
+            {group.map((photo) => (
+              <Card
+                key={photo.id}
                 style={{
-                  position: "absolute",
-                  bottom: "0px",
-                  width: "100%",
+                  width: "10rem",
+                  display: "inline-block",
+                  position: "relative",
                 }}
-                className="card-body"
+                className="gallery-card"
               >
-                <Button variant="primary" style={{ margin: "auto" }}>
-                  Подробнее
-                </Button>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
-      ))}
+                <Card.Img src={photo.thumbnailUrl} />
+                <Card.Body
+                  style={{
+                    position: "absolute",
+                    bottom: "0px",
+                    width: "100%",
+                  }}
+                  className="gallery-card-body"
+                >
+                  <Button
+                    variant="primary"
+                    style={{ margin: "auto" }}
+                    data-id={photo.id}
+                    onClick={showPhotoDetails}
+                  >
+                    Подробнее
+                  </Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        ))
+      )}
     </div>
   );
 }

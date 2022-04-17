@@ -1,8 +1,7 @@
 import { Nav, Navbar } from "react-bootstrap";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
-import "../styles/header.scss";
+import "../styles/header.css";
 import { useState } from "react";
 import Image from "react-bootstrap/Image";
 import profilePic from "../assets/pfp.jpg";

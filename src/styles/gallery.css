@@ -1,7 +1,7 @@
-.card-body {
+.gallery-card-body {
   display: none;
 }
 
-.card:hover .card-body {
+.gallery-card:hover > .gallery-card-body {
   display: flex;
 }
