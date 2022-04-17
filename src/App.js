@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Navigate replace to="/gallery" />} />
+        <Route path="*" element={<Navigate replace to="/gallery" />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/:id" element={<Photo />} />
         <Route path="/about" element={<About />} />
