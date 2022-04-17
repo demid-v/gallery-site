@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Card, Spinner } from "react-bootstrap";
+import { Button, Card, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPhoto } from "../redux/ducks/photos";
 
 function Photo() {
@@ -17,17 +17,26 @@ function Photo() {
 
   useEffect(handleGetPhoto, []);
 
+  const navigate = useNavigate();
+
+  function goBackToGallery(event) {
+    navigate("/gallery");
+  }
+
   return (
     <div>
       {!("id" in photo) ? (
         <Spinner animation="border" />
       ) : (
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={photo.url} />
-          <Card.Body>
-            <Card.Title>{photo.title}</Card.Title>
-          </Card.Body>
-        </Card>
+        <div>
+          <Button onClick={goBackToGallery}>Назад</Button>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={photo.url} />
+            <Card.Body>
+              <Card.Title>{photo.title}</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
       )}
     </div>
   );

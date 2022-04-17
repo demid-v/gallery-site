@@ -4,11 +4,8 @@ import photosReducer from "./ducks/photos";
 import { watcherSaga } from "./sagas/rootSaga";
 
 const reducer = combineReducers({ photos: photosReducer });
-
 const sagaMiddleware = createSagaMiddleware();
-
 const middleware = [sagaMiddleware];
-
 const store = createStore(reducer, {}, applyMiddleware(...middleware));
 
 sagaMiddleware.run(watcherSaga);
