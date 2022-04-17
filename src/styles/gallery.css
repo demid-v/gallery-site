@@ -1,0 +1,7 @@
+.card-body {
+  display: none;
+}
+
+.card:hover .card-body {
+  display: flex;
+}
