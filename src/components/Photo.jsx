@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 function Photo({ photo }) {
   const navigate = useNavigate();
 
-  function showPhotoDetails(event) {
-    const id = event.target.dataset.id;
-    navigate(`/gallery/${id}`);
+  function showPhotoDetails() {
+    navigate(`/gallery/${photo.id}`);
   }
 
   return (
@@ -30,7 +29,6 @@ function Photo({ photo }) {
         <Button
           variant="primary"
           style={{ margin: "auto" }}
-          data-id={photo.id}
           onClick={showPhotoDetails}
         >
           Подробнее
