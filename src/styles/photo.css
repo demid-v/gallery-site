@@ -1,0 +1,20 @@
+.gallery-card {
+  width: 10rem;
+  display: inline-block;
+  position: relative;
+}
+
+.gallery-card > .card-body {
+  display: none;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+.gallery-card:hover > .card-body {
+  display: flex;
+}
+
+.details-card {
+  width: 18rem;
+}

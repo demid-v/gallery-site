@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Photo from "../components/Photo";
+import PhotoGallery from "../components/PhotoGallery";
 import { getPhotos } from "../redux/ducks/photos";
-import "../styles/gallery.css";
 
 function Gallery() {
   const photos = useSelector((state) => state.photos.photos);
@@ -40,7 +39,13 @@ function Gallery() {
           <div key={index}>
             <h3>Категория {index + 1}</h3>
             {group.map((photo) => (
-              <Photo key={photo.id} photo={photo} />
+              <PhotoGallery
+                key={photo.id}
+                id={photo.id}
+                url={photo.thumbnailUrl}
+                showDetailsButton
+                cardClass="gallery-card"
+              />
             ))}
           </div>
         ))

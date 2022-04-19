@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { Button, Card, Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPhoto } from "../redux/ducks/photos";
+import PhotoDetailsComponent from "../components/PhotoDetails";
 
-function Photo() {
+function PhotoDetails() {
   const { id } = useParams();
 
   const photo = useSelector((state) => state.photos.photo);
 
   const dispatch = useDispatch();
-
   const handleGetPhoto = () => {
     dispatch(getPhoto(id));
   };
@@ -18,28 +18,26 @@ function Photo() {
   useEffect(handleGetPhoto, []);
 
   const navigate = useNavigate();
-
-  function goBackToGallery(event) {
+  function goBackToGallery() {
     navigate("/gallery");
   }
 
   return (
     <div>
-      {!("id" in photo) ? (
+      <Button onClick={goBackToGallery}>Назад</Button>
+      {!("id" in photo) || photo.id != id ? (
         <Spinner animation="border" />
       ) : (
         <div>
-          <Button onClick={goBackToGallery}>Назад</Button>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={photo.url} />
-            <Card.Body>
-              <Card.Title>{photo.title}</Card.Title>
-            </Card.Body>
-          </Card>
+          <PhotoDetailsComponent
+            url={photo.url}
+            title={photo.title}
+            cardClass="details-card"
+          />
         </div>
       )}
     </div>
   );
 }
 
-export default Photo;
+export default PhotoDetails;
